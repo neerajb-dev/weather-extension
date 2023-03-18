@@ -1,31 +1,14 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import ReactDOM from 'react-dom'
 import './popup.css'
-import { fetchCurrentLocationData } from '../utils/api'
-import { OpenWeatherData } from '../utils/types'
+import WeatherCard from './WeatherCard'
 
 const App: React.FC<{}> = () => {
-  const [weatherData, setWeatherData] = useState<OpenWeatherData>(null)
-  const [unit, setUnit] = useState<string>('metric')
-
-  useEffect(() => {
-    fetchData(unit)
-  }, [unit])
-
-  async function fetchData(unit: string) {
-    try {
-      const currWeatherData = await fetchCurrentLocationData(unit)
-      setWeatherData(currWeatherData)
-    } catch (error) {
-      console.log(error)
-    }
-  }
-
-  console.log('weather data', weatherData)
+  const [measurementUnit, setMeasurementUnit] = useState<string>('imperial')
 
   return (
     <div>
-      <img src="icon.png" alt="" />
+      <WeatherCard unit={measurementUnit} />
     </div>
   )
 }
